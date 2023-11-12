@@ -1,0 +1,36 @@
+span.cell{
+    height:8px;
+    width:8px;
+    border:1px solid purple; /* actual width & height is 25px because of border */
+    background-color: #ccc;
+    padding:0;
+    margin:0;
+    position:absolute;
+}
+
+/* Get rid of the cell border when it is selected */
+span.cellSelected{
+    height:10px;
+    width:10px;
+    background-color: red;
+    padding:0;
+    margin:0;
+    position:absolute;
+}
+
+#gridContainer{
+    top:5px;
+    left:5px;
+    padding:0;
+    display:inline-block;
+    position:absolute;
+}
+
+h1{
+    font-family: 'Press Start 2P', cursive;
+    display: inline-block;
+    position:absolute;
+    font-size:1.3em;
+    top: 0;
+    left:800px;
+}

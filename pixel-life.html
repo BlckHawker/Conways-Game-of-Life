@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8" />
+	<title>Pixel Arteur</title>
+	<link href="https://fonts.googleapis.com/css?family=Press+Start+2P" rel="stylesheet">
+	<link rel="stylesheet" href="./style.css">
+	<script src="lifeworld.js"></script>
+</head>
+<body>
+<div id="gridContainer"></div>
+<h1>Life</h1>
+
+<script>
+	
+    const numCols = 70;
+    const numRows = 40;
+    const cellWidth = 10;
+    const cellSpacing = 1;
+
+    const container = document.querySelector("#gridContainer");
+
+    const span = document.createElement('span');
+    span.className = 'cell';
+
+    const cells = [];
+
+    for(let row = 0; row < numRows; row++) {
+        cells.push([]);
+        for(let col=0; col<numCols;col++) {
+            let cell = span.cloneNode();
+            let x = `${col*(cellWidth + cellSpacing)}px`;
+            let y = `${row*(cellWidth + cellSpacing)}px`;
+            cell.style.left = x;
+            cell.style.top = y;
+            container.appendChild(cell);
+            cells[row][col] = cell;
+        }
+    }
+
+    let lastUpdate = performance.now();
+	
+	let lastFrame = performance.now();
+
+	let maxFrameDelay = 1000/12;
+	// let maxFrameDelay = 1000;
+
+
+	lifeworld.init(numCols, numRows);
+	updateGrid();
+
+	loop(performance.now());
+
+	function loop(timestamp){
+		requestAnimationFrame(loop);
+		lastUpdate = timestamp;
+
+		if(timestamp - lastFrame > maxFrameDelay) {
+			lastFrame = timestamp;
+			lifeworld.step();
+			debugger;
+			updateGrid();
+		}
+	}
+
+	function updateGrid() {
+		for(let row = 0; row < numRows; row++){
+			for(let col = 0; col < numCols; col++){
+				let element = cells[row][col];
+				if(lifeworld.world[row][col] === 1){
+					element.style.backgroundColor="red";
+				}
+				else{
+					element.style.backgroundColor="white";
+				}
+			}
+		}
+	}
+</script>
+</body>
+</html>
